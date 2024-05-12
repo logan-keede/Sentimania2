@@ -19,6 +19,32 @@
     var photo = null;
     var formsrc = null;
     var startbutton = null;
+
+
+    var maxPhotos = 10; // Define maximum number of photos
+    var photoCount = 0; // Initialize photo counter
+    var photoContainer = document.getElementById('photoContainer');
+
+
+    // Function to add captured photo to the container
+    function addPhoto(dataURL) {
+        
+        var img = document.createElement('img');
+        img.src = dataURL;
+        img.alt = 'Photo ' + (photoCount + 1);
+        // img.name = 'src';
+        photoContainer.appendChild(img);
+        photoCount++;
+    }
+
+    function createInputField(imageData) {
+      var input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', 'photos[]'); // Assuming 'photos[]' is the name of your form field
+      input.setAttribute('value', imageData);
+      photoContainer.appendChild(input);
+  }
+
   
     function startup() {
       video = document.getElementById('video');
@@ -56,6 +82,9 @@
       }, false);
   
       startbutton.addEventListener('click', function(ev){
+        photoCount = 0;
+        photoContainer.replaceChildren();
+
         takepicture();
         ev.preventDefault();
       }, false);
@@ -70,7 +99,7 @@
       var context = canvas.getContext('2d');
       context.fillStyle = "#AAA";
       context.fillRect(0, 0, canvas.width, canvas.height);
-  
+      
       var data = canvas.toDataURL('image/png');
       photo.setAttribute('src', data);
     }
@@ -83,16 +112,23 @@
   
     function takepicture() {
       var context = canvas.getContext('2d');
-      if (width && height) {
-        canvas.width = width;
-        canvas.height = height;
-        context.drawImage(video, 0, 0, width, height);
-  
-        var data = canvas.toDataURL('image/png');
-        photo.setAttribute('src', data);
-        formsrc.setAttribute('value', data);
-      } else {
-        clearphoto();
+      for(var i=0; i<10;i++){
+        setTimeout(()=> {if (width && height) {
+          canvas.width = width;
+          canvas.height = height;
+          context.drawImage(video, 0, 0, width, height);
+    
+          var data = canvas.toDataURL('image/png'+i);
+          console.log(data);
+          photo.setAttribute('src', data);
+          formsrc.setAttribute('value', data);
+          addPhoto(data);
+          createInputField(data);
+        } else {
+          clearphoto();
+        }},
+        Math.floor(Math.random() * 5000));
+
       }
     }
   
