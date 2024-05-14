@@ -44,6 +44,7 @@ def result(request,image_names):
 
 # Make predictions for all images at once
     predictions = model(images_array)
+    predictions*= 100
 
     context['predictions']=predictions
     dirpath = f'static/photos/'

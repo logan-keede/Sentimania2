@@ -1,39 +1,44 @@
-<!doctype html>
-<html>
-    {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Tracker System</title>
     {% load static %}
-    <head>
-        <title>Camera</title>
-        <meta charset='utf-8'>
-        <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css" media="all">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script type="module" src="{% static 'index.js' %}"></script>
-    </head>
-    <body>
-        <div class="contentarea">
-            <div class="Input">
-                <form method="POST" name="inputForm" enctype='multipart/form-data' action ="camera/">
-                    {% csrf_token %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="module" src="{% static 'index.js' %}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">Emotion Tracker System</h1>
+        </header>
+        <div class="form-container">
+            <form method="POST" name="inputForm" enctype='multipart/form-data' action="camera/">
+                {% csrf_token %}
+                <div class="camera-section">
                     <div id="camera" class="camera">
                         <video id="video">Video stream not available.</video>
-                        <button id="startbutton" type="button">Take photo</button>
+                        <button id="startbutton" type="button" class="button">Take Photo</button>
                         <input id="webimg" value="" name="src" type="text" style="display: none;">
-
-                        <canvas id="canvas">
-                        </canvas>
+                        <canvas id="canvas"></canvas>
                     </div>
-                    <br>
-                    <div>
-                        <img id="photo" alt="your image">
-                    </div> 
-                    <div id="photoContainer">
+                </div>
+                <div class="photo-container">
+                    <img id="photo" alt="Your image" class="photo-preview">
+                    <div id="photoContainer" class="photo-grid">
                         <!-- This div will hold the captured photos -->
                     </div>
-                    <br>
+                </div>
+                <div class="button-container">
                     <button type="submit" class="button" id="submit">Submit</button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
-    </body>
-    {% endblock %}
+    </div>
+</body>
 </html>

@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
 </head>
 <body>
-    <h1>Prediction Results</h1>
-    <p>{{ predictions }}</p>
+    <div class="container">
+        <header class="header">
+            <h1>Prediction Results</h1>
+        </header>
+        <div class="prediction-results">
+            <p>{{ predictions }}</p>
+        </div>
+    </div>
 </body>
 </html>
