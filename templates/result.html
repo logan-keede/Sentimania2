@@ -13,7 +13,34 @@
             <h1>Prediction Results</h1>
         </header>
         <div class="prediction-results">
-            <p>{{ predictions }}</p>
+            {% for predictioni in predictions %}
+            <div>
+                <h1>Result {{forloop.counter}}</h1>
+            <p> {% for prediction in predictioni %}
+                <p>
+                    {% if forloop.counter0 == 0 %}
+                        Angry: {{ prediction }}
+                    {% elif forloop.counter0 == 1 %}
+                        Disgust: {{ prediction }}
+                    {% elif forloop.counter0 == 2 %}
+                        Fear: {{ prediction }}
+                    {% elif forloop.counter0 == 3 %}
+                        Happy: {{ prediction }}
+                    {% elif forloop.counter0 == 4 %}
+                        Neutral: {{ prediction }}
+                    {% elif forloop.counter0 == 5 %}
+                        Sad: {{ prediction }}
+                    {% elif forloop.counter0 == 6 %}
+                        Surprise: {{ prediction }}
+                    {% else %}
+                        Prediction {{ index }}: {{ prediction }}
+                    {% endif %}
+                </p>
+            {% endfor %}</p>
+            </div>
+
+
+            {% endfor %}
         </div>
     </div>
 </body>

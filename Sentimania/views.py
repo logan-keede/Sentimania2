@@ -31,21 +31,27 @@ def home(request):
     return render(request, "home.html")
 
 def result(request,image_names):
-    model = tf.saved_model.load('./Emotion_detector')
+    model = tf.saved_model.load('./Emotion_detector_copy')
     images= []
     context = {'predictions': []}
 
     for input_image in image_names:
         input_image = preprocess_image(input_image)
         images.append(input_image)
-        # model
-        # predictions = model(input_image)
     images_array = np.array(images)
 
 # Make predictions for all images at once
     predictions = model(images_array)
+    predictions = tf.nn.softmax(
+    predictions, axis=None, name=None
+)
     predictions*= 100
 
+    print(predictions)
+    predictions=np.array(predictions)
+
+    # predictions = list(map(lambda x: sum(predictions[::][x]), range(0,10)))
+    # print(predictions)
     context['predictions']=predictions
     dirpath = f'static/photos/'
     for filename in os.listdir(dirpath):
@@ -54,7 +60,7 @@ def result(request,image_names):
             shutil.rmtree(filepath)
         except OSError:
             os.remove(filepath)
-
+    
     return render(request, 'result.html', context)
 
 def camera(request):
