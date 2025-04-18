@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Prediction Results</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'style2.css' %}">
 </head>
@@ -12,8 +12,28 @@
         <header class="header">
             <h1>Prediction Results</h1>
         </header>
+
         <div class="prediction-results">
-            <p>{{ predictions }}</p>
+            <p>Our prediction: <strong>{{ predictions }}</strong></p>
+        </div>
+
+        <div class="feedback-form">
+            <h2>Was this accurate?</h2>
+            <form action="{% url 'submit_emotion_feedback' %}" method="POST">
+                {% csrf_token %}
+                <label for="actual_emotion">What are you actually feeling?</label>
+                <select name="actual_emotion" id="actual_emotion" required>
+                    <option value="">-- Select Emotion --</option>
+                    <option value="Angry">Angry</option>
+                    <option value="Disgust">Disgust</option>
+                    <option value="Fear">Fear</option>
+                    <option value="Happy">Happy</option>
+                    <option value="Sad">Sad</option>
+                    <option value="Surprise">Surprise</option>
+                    <option value="Neutral">Neutral</option>
+                </select>
+                <button type="submit">Submit</button>
+            </form>
         </div>
     </div>
 </body>

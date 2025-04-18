@@ -31,7 +31,7 @@ def home(request):
     return render(request, "home.html")
 
 def result(request,image_names):
-    model = tf.saved_model.load('./Emotion_detector')
+    model = tf.keras.models.load_model('./Emotion_tracker_copy_acc.h5')
     images= []
     context = {'predictions': []}
 
@@ -75,3 +75,15 @@ def camera(request):
         # print(l)
         return result(request,image_names)
     # return render(request, 'result.html')
+
+
+def submit_emotion_feedback(request):
+    if request.method == 'POST':
+        actual_emotion = request.POST.get('actual_emotion')
+        # You can log this to your database, a file, or just print it
+        print("User-reported emotion:", actual_emotion)
+
+        # Optional: save it, use it to train/improve model, etc.
+        return HttpResponse("Thank you for your feedback!")
+    # else:
+    #     return redirect('your_results_page')

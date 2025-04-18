@@ -25,4 +25,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('result/', views.result, name='result'),
     path('camera/', views.camera, name = "camera"),
+    path('submit-feedback/', views.submit_emotion_feedback, name='submit_emotion_feedback'),
+
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
